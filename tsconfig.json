@@ -1,4 +1,29 @@
 {
-  "compilerOptions": {},
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "baseUrl": "src",
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react-native",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "moduleResolution": "node",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "strict": true, // We recommend enabling this to minimize the chance of introducing runtime errors.
+    "paths": {
+      "*": ["src/*"],
+      "components/*": ["components/*"],
+      "utils/*": ["utils/*"],
+      "theme/*": ["theme/*"],
+      "screens/*": ["screens/*"],
+      "navigation/*": ["navigation/*"],
+      "locales/*": ["locales/*"],
+      "context/*": ["context/*"],
+      "hooks/*": ["hooks/*"],
+      "database/*": ["database/*"]
+    }
+  },
+  "include": ["./src/**/*", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "*.json", "**/*.json"],
   "extends": "expo/tsconfig.base"
 }
