@@ -1,0 +1,11 @@
+node_modules
+build/
+.next
+yarn.lock
+package-lock.json
+public
+cypress
+_configs_files
+.expo
+.expo-shared
+.vscode
