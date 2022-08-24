@@ -1,0 +1,14 @@
+**/node_modules/*
+**/out/*
+README.md
+_configs_files
+.expo
+.expo-shared
+app.config.js
+babel.config.js
+metro.config.js
+webpack.config.js
+package.json
+tsconfig.json
+app.json
+src/libs/locales/*.json
