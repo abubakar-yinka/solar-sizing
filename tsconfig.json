@@ -12,15 +12,12 @@
     "strict": true, // We recommend enabling this to minimize the chance of introducing runtime errors.
     "paths": {
       "*": ["src/*"],
-      "components/*": ["components/*"],
+      "app/*": ["app/*"],
       "utils/*": ["utils/*"],
-      "theme/*": ["theme/*"],
-      "screens/*": ["screens/*"],
-      "navigation/*": ["navigation/*"],
+      "styles/*": ["styles/*"],
+      "store/*": ["store/*"],
+      "constants/*": ["constants/*"],
       "locales/*": ["locales/*"],
-      "context/*": ["context/*"],
-      "hooks/*": ["hooks/*"],
-      "database/*": ["database/*"]
     }
   },
   "include": ["./src/**/*", "**/*.ts", "**/*.tsx"],
