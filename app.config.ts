@@ -41,7 +41,7 @@ const config: ExpoConfig = {
       backgroundColor: "#1D1D93",
     },
     package: "com.interpocket.merchant",
-    googleServicesFile: "./google-services.json",
+    // googleServicesFile: "./google-services.json",
     // playStoreUrl:
     //   "https://play.google.com/store/apps/details?id=com.interpocket.merchant",
     useNextNotificationsApi: true,
