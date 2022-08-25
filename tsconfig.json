@@ -13,11 +13,12 @@
     "paths": {
       "*": ["src/*"],
       "app/*": ["app/*"],
-      "utils/*": ["utils/*"],
-      "styles/*": ["styles/*"],
-      "store/*": ["store/*"],
       "constants/*": ["constants/*"],
       "locales/*": ["locales/*"],
+      "store/*": ["store/*"],
+      "styles/*": ["styles/*"],
+      "types/*": ["types/*"],
+      "utils/*": ["utils/*"],
     }
   },
   "include": ["./src/**/*", "**/*.ts", "**/*.tsx"],
