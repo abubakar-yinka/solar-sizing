@@ -1,7 +1,7 @@
 import { ExpoConfig } from "@expo/config-types";
 
 const config: ExpoConfig = {
-  owner: "solar-sizing",
+  owner: "interpocket",
   name: "solar-sizing",
   slug: "solar-sizing",
   version: "1.0.0",
