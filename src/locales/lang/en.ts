@@ -1,3 +1,3 @@
 export default {
-  title: "InterPocket Merchant",
+  title: "Solar Sizing",
 };

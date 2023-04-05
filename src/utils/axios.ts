@@ -1,12 +1,10 @@
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 import { setupInterceptorsTo } from "./interceptors";
 
-const INTERPOCKET_PROD_BASE_URL = "https://interpocket.herokuapp.com/api";
-// const INTERPOCKET_DEV_BASE_URL = "https://interpocket-dev.herokuapp.com/api";
-// const INTERPOCKET_LOCAL_BASE_URL = "http://192.168.43.185:5000/api";
+const LOCAL_BASE_URL = "http://192.168.43.185:5000/api";
 
 const client: AxiosInstance = axios.create({
-  baseURL: INTERPOCKET_PROD_BASE_URL,
+  baseURL: LOCAL_BASE_URL,
 });
 
 const interceptedAxiosClientInstance = setupInterceptorsTo(client);

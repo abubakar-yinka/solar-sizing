@@ -27,6 +27,7 @@
   "dependencies": {
     "@bothrs/expo-mixpanel-analytics": "^2.0.0",
     "@expo-google-fonts/dm-sans": "^0.2.2",
+    "@expo-google-fonts/urbanist": "^0.2.3",
     "@expo-google-fonts/zen-dots": "^0.2.2",
     "@expo/config-types": "^46.0.2",
     "@expo/metro-config": "^0.3.22",
@@ -42,6 +43,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "expo": "^46.0.0",
+    "expo-app-loading": "~2.1.0",
     "expo-asset": "^8.6.1",
     "expo-font": "^10.2.0",
     "expo-local-authentication": "^12.3.0",

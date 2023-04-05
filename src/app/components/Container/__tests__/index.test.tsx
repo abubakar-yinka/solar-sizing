@@ -8,7 +8,7 @@ describe("Container component UI", () => {
     const tree = renderer
       .create(
         <WithTheme>
-          <Container>InterPocket Merchant</Container>
+          <Container>Solar Sizing</Container>
         </WithTheme>
       )
       .toJSON();
