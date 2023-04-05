@@ -4,7 +4,6 @@ import { Image } from "react-native";
 import { enableScreens } from "react-native-screens";
 import * as SplashScreen from "expo-splash-screen";
 import { Asset } from "expo-asset";
-import AppLoading from "expo-app-loading";
 import {
   useFonts,
   Urbanist_100Thin,
@@ -97,7 +96,7 @@ const App: React.FC = () => {
   }, []);
 
   if (!appIsReady || !fontsLoaded) {
-    return <AppLoading />;
+    return null;
   }
 
   return <AppContainer />;
