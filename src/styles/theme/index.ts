@@ -12,7 +12,11 @@ const darkTheme = {
 };
 
 const constantTheme = {
-  background: "#1D1D93",
+  background: "#FFFFFF",
+  primary: "#3B46F1",
+  secondary: "#EDEDED",
+  textGrey: "#333333",
+  textLightGrey: "#4D4D4D",
 };
 
 const Theme = {
