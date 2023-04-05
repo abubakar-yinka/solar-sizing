@@ -1,12 +1,31 @@
 import "react-native-gesture-handler";
 import React, { useEffect, useState } from "react";
 import { Image } from "react-native";
+import { enableScreens } from "react-native-screens";
 import * as SplashScreen from "expo-splash-screen";
 import { Asset } from "expo-asset";
-import { useFonts } from "expo-font";
-import { DMSans_400Regular } from "@expo-google-fonts/dm-sans";
-import { ZenDots_400Regular } from "@expo-google-fonts/zen-dots";
-import { enableScreens } from "react-native-screens";
+import AppLoading from "expo-app-loading";
+import {
+  useFonts,
+  Urbanist_100Thin,
+  Urbanist_200ExtraLight,
+  Urbanist_300Light,
+  Urbanist_400Regular,
+  Urbanist_500Medium,
+  Urbanist_600SemiBold,
+  Urbanist_700Bold,
+  Urbanist_800ExtraBold,
+  Urbanist_900Black,
+  Urbanist_100Thin_Italic,
+  Urbanist_200ExtraLight_Italic,
+  Urbanist_300Light_Italic,
+  Urbanist_400Regular_Italic,
+  Urbanist_500Medium_Italic,
+  Urbanist_600SemiBold_Italic,
+  Urbanist_700Bold_Italic,
+  Urbanist_800ExtraBold_Italic,
+  Urbanist_900Black_Italic,
+} from "@expo-google-fonts/urbanist";
 import AppContainer from "./src";
 
 enableScreens();
@@ -29,8 +48,24 @@ const App: React.FC = () => {
   const [appIsReady, setAppIsReady] = useState(false);
 
   let [fontsLoaded] = useFonts({
-    DMSans_400Regular,
-    ZenDots_400Regular,
+    Urbanist_100Thin,
+    Urbanist_200ExtraLight,
+    Urbanist_300Light,
+    Urbanist_400Regular,
+    Urbanist_500Medium,
+    Urbanist_600SemiBold,
+    Urbanist_700Bold,
+    Urbanist_800ExtraBold,
+    Urbanist_900Black,
+    Urbanist_100Thin_Italic,
+    Urbanist_200ExtraLight_Italic,
+    Urbanist_300Light_Italic,
+    Urbanist_400Regular_Italic,
+    Urbanist_500Medium_Italic,
+    Urbanist_600SemiBold_Italic,
+    Urbanist_700Bold_Italic,
+    Urbanist_800ExtraBold_Italic,
+    Urbanist_900Black_Italic,
   });
 
   // Load any resources or data that you need prior to rendering the app
@@ -62,7 +97,7 @@ const App: React.FC = () => {
   }, []);
 
   if (!appIsReady || !fontsLoaded) {
-    return null;
+    return <AppLoading />;
   }
 
   return <AppContainer />;
