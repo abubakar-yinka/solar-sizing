@@ -10,17 +10,17 @@ const config: ExpoConfig = {
   userInterfaceStyle: "automatic",
   notification: {
     icon: "./assets/notification_icon.png",
-    color: "#1D1D93",
+    color: "#3B46F1",
     iosDisplayInForeground: true,
   },
   splash: {
     image: "./assets/splash.png",
     resizeMode: "contain",
-    backgroundColor: "#1D1D93",
+    backgroundColor: "#3B46F1",
   },
   updates: {
     fallbackToCacheTimeout: 0,
-    url: "https://u.expo.dev/1eaa1a01-74c2-4bf5-90b9-216a870fe291"
+    url: "https://u.expo.dev/1eaa1a01-74c2-4bf5-90b9-216a870fe291",
   },
   assetBundlePatterns: ["**/*"],
   ios: {
@@ -40,7 +40,7 @@ const config: ExpoConfig = {
     versionCode: 8,
     adaptiveIcon: {
       foregroundImage: "./assets/adaptive-icon.png",
-      backgroundColor: "#1D1D93",
+      backgroundColor: "#3B46F1",
     },
     package: "com.solar.sizing",
     useNextNotificationsApi: true,
@@ -56,7 +56,7 @@ const config: ExpoConfig = {
   },
   runtimeVersion: {
     policy: "sdkVersion",
-  }
+  },
 };
 
 export default config;
