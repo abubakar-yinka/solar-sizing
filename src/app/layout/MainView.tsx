@@ -1,9 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
-import Container from "app/components/Container";
 import { Header } from "app/components/Header";
 import { ScrollView } from "react-native";
-import { DEVICE_DIMENSIONS } from "styles/typography";
 
 interface MainViewProps {
   backIconPresent: boolean;
@@ -26,8 +24,8 @@ const MainView: React.FC<MainViewProps> = ({
   headerShown,
   children,
 }) => (
-  <ScrollView contentContainerStyle={{ height: DEVICE_DIMENSIONS.HEIGHT }}>
-    <MainViewWrapper backgroundColor={backgroundColor}>
+  <MainViewWrapper backgroundColor={backgroundColor}>
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <PaddedView>
         {headerShown && (
           <Header
@@ -38,10 +36,10 @@ const MainView: React.FC<MainViewProps> = ({
             rightIconOnPress={rightIconOnPress}
           />
         )}
-        <Container>{children}</Container>
+        {children}
       </PaddedView>
-    </MainViewWrapper>
-  </ScrollView>
+    </ScrollView>
+  </MainViewWrapper>
 );
 export default MainView;
 
