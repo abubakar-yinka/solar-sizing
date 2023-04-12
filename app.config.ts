@@ -20,6 +20,7 @@ const config: ExpoConfig = {
   },
   updates: {
     fallbackToCacheTimeout: 0,
+    url: "https://u.expo.dev/1eaa1a01-74c2-4bf5-90b9-216a870fe291"
   },
   assetBundlePatterns: ["**/*"],
   ios: {
@@ -53,6 +54,9 @@ const config: ExpoConfig = {
   web: {
     favicon: "./assets/favicon.png",
   },
+  runtimeVersion: {
+    policy: "sdkVersion",
+  }
 };
 
 export default config;
