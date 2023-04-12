@@ -10,12 +10,16 @@ interface AccordionListItemProps {
   title: string;
   children: React.ReactNode;
   marginBottom?: string;
+  bgColor?: string;
+  isNested?: boolean;
 }
 
 const AccordionListItem: React.FC<AccordionListItemProps> = ({
   title,
   children,
   marginBottom,
+  bgColor,
+  isNested,
 }) => {
   const [open, setOpen] = useState(false);
   const animatedController = useRef(new Animated.Value(0)).current;
@@ -51,7 +55,11 @@ const AccordionListItem: React.FC<AccordionListItemProps> = ({
   };
 
   return (
-    <AccordionContainer marginBottom={marginBottom}>
+    <AccordionContainer
+      marginBottom={marginBottom}
+      bgColor={bgColor}
+      isNested={isNested}
+    >
       <TouchableWithoutFeedback onPress={() => toggleListItem()}>
         <TitleContainer>
           <Title
@@ -84,11 +92,17 @@ const AccordionListItem: React.FC<AccordionListItemProps> = ({
 
 export default AccordionListItem;
 
-const AccordionContainer = styled.View<{ marginBottom?: string }>`
+const AccordionContainer = styled.View<{
+  marginBottom?: string;
+  bgColor?: string;
+  isNested?: boolean;
+}>`
   border-width: 1px;
   border-radius: 16px;
-  border-color: #ededed;
-  background-color: #ededed;
+  border-color: ${props =>
+    !props.isNested ? props.bgColor ?? "#ededed" : "#000"};
+  background-color: ${props =>
+    !props.isNested ? props.bgColor ?? "#ededed" : "#ededed"};
   margin-bottom: ${props => props.marginBottom || "0px"};
 `;
 
@@ -110,4 +124,6 @@ const BodyContainer = styled.View`
   padding: 0 12px 20px;
   position: absolute;
   bottom: 0;
+  left: 0;
+  right: 0;
 `;
