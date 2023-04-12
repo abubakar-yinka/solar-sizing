@@ -33,6 +33,7 @@ import {
   firstNameSelector,
   lastNameSelector,
   noOfAppliancesSelector,
+  recommendationsSelector,
   savedDateSelector,
   sunHoursSelector,
   totalPowerConsumptionSelector,
@@ -53,6 +54,7 @@ const Home: React.FC = () => {
   const batteryAutonomyDays = useSelector(batteryAutonomyDaysSelector);
   const noOfAppliances = useSelector(noOfAppliancesSelector);
   const totalWattHoursPerDay = useSelector(totalWattHoursPerDaySelector);
+  const recommendations = useSelector(recommendationsSelector);
 
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isBatteryAutonomyModalVisible, setBatteryAutonomyModalVisibility] =
@@ -114,6 +116,7 @@ const Home: React.FC = () => {
           handleRecommendationsPress={() =>
             navigation.navigate("Recommendation")
           }
+          hasRecommendationData={recommendations.length > 0}
         />
         <BoxSplitView marginBottom="20px">
           <Box isSpliView={true}>

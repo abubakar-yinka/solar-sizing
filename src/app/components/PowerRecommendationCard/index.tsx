@@ -8,7 +8,6 @@ import H1 from "app/components/Typography/H1";
 import P1 from "app/components/Typography/P1";
 import Theme from "styles/theme";
 import { FONTS } from "styles/typography";
-import { View } from "react-native";
 
 interface Props {
   cardTitle: string;
@@ -16,6 +15,7 @@ interface Props {
   btnText?: string;
   handleRecommendationsPress?: () => void;
   marginBottom?: string;
+  hasRecommendationData?: boolean;
 }
 
 const PoweRecommendationCard: React.FC<Props> = ({
@@ -24,6 +24,7 @@ const PoweRecommendationCard: React.FC<Props> = ({
   btnText,
   marginBottom,
   handleRecommendationsPress = () => {},
+  hasRecommendationData,
 }) => {
   return (
     <Box marginBottom={marginBottom}>
@@ -36,7 +37,7 @@ const PoweRecommendationCard: React.FC<Props> = ({
       </BoxContentView>
       {btnText && (
         <>
-          {totalWattValue === "0.00" ? (
+          {totalWattValue === "0.00" && !hasRecommendationData ? (
             <Placeholder />
           ) : (
             <RecommendationButton onPress={handleRecommendationsPress}>
