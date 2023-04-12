@@ -12,7 +12,7 @@ import {
   recommendationsSelector,
   totalPowerConsumptionSelector,
 } from "./slice/selector";
-import Battery from "app/assets/battery.svg";
+import BatteryImage from "app/assets/battery.png";
 
 const Recommendations = () => {
   const totalPowerConsumption = useSelector(totalPowerConsumptionSelector);
@@ -104,14 +104,139 @@ const Recommendations = () => {
         </RecommendationContentView>
         {!recommendationNotFound && (
           <>
-            <AccordionListItem title={"Battery"} marginBottom="16px">
-              {recommendations.map((battery, index) => (
-                <View key={index} style={{ marginBottom: 8 }}>
-                  <P1 fontFamily={FONTS.Urbanist_700Bold}>
-                    You can build {battery.name} with:
-                  </P1>
-                  {battery.models.map((b, idx) => (
-                    <View key={idx}>
+            {recommendations.length > 1 ? (
+              recommendations.map((recommendation, index) => {
+                const panelWt = Math.ceil(recommendation.panel / 100) * 100;
+                const mppt12 = Math.ceil(panelWt / 12);
+                const mppt24 = Math.ceil(panelWt / 24);
+                const mppt48 = Math.ceil(panelWt / 48);
+                return (
+                  <AccordionListItem
+                    title={`Option ${index + 1}`}
+                    marginBottom="16px"
+                    key={index}
+                  >
+                    <AccordionListItem
+                      title={"Battery"}
+                      marginBottom="16px"
+                      isNested
+                    >
+                      <View key={index} style={{ marginBottom: 8 }}>
+                        <P1 fontFamily={FONTS.Urbanist_700Bold}>
+                          You can build {recommendation.name} with:
+                        </P1>
+                        {recommendation.models.map((b, idx) => (
+                          <View key={idx}>
+                            <View
+                              style={{
+                                alignItems: "center",
+                                justifyContent: "center",
+                                marginVertical: 8,
+                                width: "100%",
+                              }}
+                            >
+                              <ImageContainer>
+                                <StyledBatteryImage source={BatteryImage} />
+                              </ImageContainer>
+                            </View>
+                            <P1
+                              textColor={"#4D4D4D"}
+                              fontFamily={FONTS.Urbanist_500Medium}
+                            >
+                              {b.count}x batter{b.count > 1 ? "ies" : "y"}{" "}
+                              {b.volt}V {b.amp}Amps
+                            </P1>
+                          </View>
+                        ))}
+                      </View>
+                    </AccordionListItem>
+                    <AccordionListItem
+                      title={"Solar panel array"}
+                      marginBottom="16px"
+                      isNested
+                    >
+                      <View key={index} style={{ marginBottom: 8 }}>
+                        <P1 fontFamily={FONTS.Urbanist_700Bold}>
+                          {`With ${
+                            recommendation.name
+                          }wh you will need at least a solar panel array of ${
+                            Math.ceil(recommendation.panel / 100) * 100
+                          }watt.`}
+                        </P1>
+                        <View
+                          style={{
+                            alignItems: "center",
+                            justifyContent: "center",
+                            marginVertical: 8,
+                            width: "100%",
+                          }}
+                        >
+                          <ImageContainer>
+                            <StyledBatteryImage source={BatteryImage} />
+                          </ImageContainer>
+                        </View>
+                      </View>
+                    </AccordionListItem>
+                    <AccordionListItem
+                      title={"Solar charge controller"}
+                      marginBottom="16px"
+                      isNested
+                    >
+                      <View key={index} style={{ marginBottom: 8 }}>
+                        <P1
+                          fontFamily={FONTS.Urbanist_700Bold}
+                          style={{ marginBottom: 4 }}
+                        >
+                          {`To match a solar panel array of ${panelWt}watt`}
+                        </P1>
+                        <P1
+                          textColor={"#4D4D4D"}
+                          fontFamily={FONTS.Urbanist_500Medium}
+                        >
+                          - With 12V, you will need an MPPT which can support{" "}
+                          {mppt12}
+                          amp
+                        </P1>
+                        {mppt12 > 50 ? (
+                          <P1
+                            textColor={"#4D4D4D"}
+                            fontFamily={FONTS.Urbanist_500Medium}
+                          >
+                            This is a high value and we advice to step up your
+                            voltage.
+                          </P1>
+                        ) : (
+                          <Text></Text>
+                        )}
+                        <P1
+                          textColor={"#4D4D4D"}
+                          fontFamily={FONTS.Urbanist_500Medium}
+                        >
+                          - With 24V, you will need an MPPT which can support{" "}
+                          {mppt24}
+                          amp
+                        </P1>
+                        {mppt24 > 50 ? (
+                          <P1
+                            textColor={"#4D4D4D"}
+                            fontFamily={FONTS.Urbanist_500Medium}
+                          >
+                            This is a high value and we advice to step up your
+                            voltage.
+                            <br />
+                          </P1>
+                        ) : (
+                          <Text></Text>
+                        )}
+                        <P1
+                          textColor={"#4D4D4D"}
+                          fontFamily={FONTS.Urbanist_500Medium}
+                        >
+                          - With 48V, you will need an MPPT which can support{" "}
+                          {mppt48}
+                          amp
+                        </P1>
+                      </View>
                       <View
                         style={{
                           alignItems: "center",
@@ -120,30 +245,145 @@ const Recommendations = () => {
                           width: "100%",
                         }}
                       >
-                        <Battery />
+                        <ImageContainer>
+                          <StyledBatteryImage source={BatteryImage} />
+                        </ImageContainer>
                       </View>
-                      <P1
-                        textColor={"#4D4D4D"}
-                        fontFamily={FONTS.Urbanist_500Medium}
-                      >
-                        {b.count}x batter{b.count > 1 ? "ies" : "y"} {b.volt}V{" "}
-                        {b.amp}Amps
+                    </AccordionListItem>
+                  </AccordionListItem>
+                );
+              })
+            ) : (
+              <>
+                <AccordionListItem title={"Battery"} marginBottom="16px">
+                  {recommendations.map((battery, index) => (
+                    <View key={index} style={{ marginBottom: 8 }}>
+                      <P1 fontFamily={FONTS.Urbanist_700Bold}>
+                        You can build {battery.name} with:
                       </P1>
+                      {battery.models.map((b, idx) => (
+                        <View key={idx}>
+                          <View
+                            style={{
+                              alignItems: "center",
+                              justifyContent: "center",
+                              marginVertical: 8,
+                              width: "100%",
+                            }}
+                          >
+                            <ImageContainer>
+                              <StyledBatteryImage source={BatteryImage} />
+                            </ImageContainer>
+                          </View>
+                          <P1
+                            textColor={"#4D4D4D"}
+                            fontFamily={FONTS.Urbanist_500Medium}
+                          >
+                            {b.count}x batter{b.count > 1 ? "ies" : "y"}{" "}
+                            {b.volt}V {b.amp}Amps
+                          </P1>
+                        </View>
+                      ))}
                     </View>
                   ))}
-                </View>
-              ))}
-            </AccordionListItem>
-            <AccordionListItem title={"Solar panel array"} marginBottom="16px">
-              {recommendations.map((solarPanelArr, index) => (
-                <View key={index} style={{ marginBottom: 8 }}>
-                  <P1 fontFamily={FONTS.Urbanist_700Bold}>
-                    {`With ${
-                      solarPanelArr.name
-                    }wh you will need at least a solar panel array of ${
-                      Math.ceil(solarPanelArr.panel / 100) * 100
-                    }watt.`}
-                  </P1>
+                </AccordionListItem>
+                <AccordionListItem
+                  title={"Solar panel array"}
+                  marginBottom="16px"
+                >
+                  {recommendations.map((solarPanelArr, index) => (
+                    <View key={index} style={{ marginBottom: 8 }}>
+                      <P1 fontFamily={FONTS.Urbanist_700Bold}>
+                        {`With ${
+                          solarPanelArr.name
+                        }wh you will need at least a solar panel array of ${
+                          Math.ceil(solarPanelArr.panel / 100) * 100
+                        }watt.`}
+                      </P1>
+                      <View
+                        style={{
+                          alignItems: "center",
+                          justifyContent: "center",
+                          marginVertical: 8,
+                          width: "100%",
+                        }}
+                      >
+                        <ImageContainer>
+                          <StyledBatteryImage source={BatteryImage} />
+                        </ImageContainer>
+                      </View>
+                    </View>
+                  ))}
+                </AccordionListItem>
+                <AccordionListItem
+                  title={"Solar charge controller"}
+                  marginBottom="16px"
+                >
+                  {recommendations.map((solarController, index) => {
+                    const panelWt =
+                      Math.ceil(solarController.panel / 100) * 100;
+                    const mppt12 = Math.ceil(panelWt / 12);
+                    const mppt24 = Math.ceil(panelWt / 24);
+                    const mppt48 = Math.ceil(panelWt / 48);
+
+                    return (
+                      <View key={index} style={{ marginBottom: 8 }}>
+                        <P1
+                          fontFamily={FONTS.Urbanist_700Bold}
+                          style={{ marginBottom: 4 }}
+                        >
+                          {`To match a solar panel array of ${panelWt}watt`}
+                        </P1>
+                        <P1
+                          textColor={"#4D4D4D"}
+                          fontFamily={FONTS.Urbanist_500Medium}
+                        >
+                          - With 12V, you will need an MPPT which can support{" "}
+                          {mppt12}
+                          amp
+                        </P1>
+                        {mppt12 > 50 ? (
+                          <P1
+                            textColor={"#4D4D4D"}
+                            fontFamily={FONTS.Urbanist_500Medium}
+                          >
+                            This is a high value and we advice to step up your
+                            voltage.
+                          </P1>
+                        ) : (
+                          <Text></Text>
+                        )}
+                        <P1
+                          textColor={"#4D4D4D"}
+                          fontFamily={FONTS.Urbanist_500Medium}
+                        >
+                          - With 24V, you will need an MPPT which can support{" "}
+                          {mppt24}
+                          amp
+                        </P1>
+                        {mppt24 > 50 ? (
+                          <P1
+                            textColor={"#4D4D4D"}
+                            fontFamily={FONTS.Urbanist_500Medium}
+                          >
+                            This is a high value and we advice to step up your
+                            voltage.
+                            <br />
+                          </P1>
+                        ) : (
+                          <Text></Text>
+                        )}
+                        <P1
+                          textColor={"#4D4D4D"}
+                          fontFamily={FONTS.Urbanist_500Medium}
+                        >
+                          - With 48V, you will need an MPPT which can support{" "}
+                          {mppt48}
+                          amp
+                        </P1>
+                      </View>
+                    );
+                  })}
                   <View
                     style={{
                       alignItems: "center",
@@ -152,90 +392,13 @@ const Recommendations = () => {
                       width: "100%",
                     }}
                   >
-                    <Battery />
+                    <ImageContainer>
+                      <StyledBatteryImage source={BatteryImage} />
+                    </ImageContainer>
                   </View>
-                </View>
-              ))}
-            </AccordionListItem>
-            <AccordionListItem
-              title={"Solar charge controller"}
-              marginBottom="16px"
-            >
-              {recommendations.map((solarController, index) => {
-                const panelWt = Math.ceil(solarController.panel / 100) * 100;
-                const mppt12 = Math.ceil(panelWt / 12);
-                const mppt24 = Math.ceil(panelWt / 24);
-                const mppt48 = Math.ceil(panelWt / 48);
-
-                return (
-                  <View key={index} style={{ marginBottom: 8 }}>
-                    <P1
-                      fontFamily={FONTS.Urbanist_700Bold}
-                      style={{ marginBottom: 4 }}
-                    >
-                      {`To match a solar panel array of ${panelWt}watt`}
-                    </P1>
-                    <P1
-                      textColor={"#4D4D4D"}
-                      fontFamily={FONTS.Urbanist_500Medium}
-                    >
-                      - With 12V, you will need an MPPT which can support{" "}
-                      {mppt12}
-                      amp
-                    </P1>
-                    {mppt12 > 50 ? (
-                      <P1
-                        textColor={"#4D4D4D"}
-                        fontFamily={FONTS.Urbanist_500Medium}
-                      >
-                        This is a high value and we advice to step up your
-                        voltage.
-                      </P1>
-                    ) : (
-                      <Text></Text>
-                    )}
-                    <P1
-                      textColor={"#4D4D4D"}
-                      fontFamily={FONTS.Urbanist_500Medium}
-                    >
-                      - With 24V, you will need an MPPT which can support{" "}
-                      {mppt24}
-                      amp
-                    </P1>
-                    {mppt24 > 50 ? (
-                      <P1
-                        textColor={"#4D4D4D"}
-                        fontFamily={FONTS.Urbanist_500Medium}
-                      >
-                        This is a high value and we advice to step up your
-                        voltage.
-                        <br />
-                      </P1>
-                    ) : (
-                      <Text></Text>
-                    )}
-                    <P1
-                      textColor={"#4D4D4D"}
-                      fontFamily={FONTS.Urbanist_500Medium}
-                    >
-                      - With 48V, you will need an MPPT which can support{" "}
-                      {mppt48}
-                      amp
-                    </P1>
-                  </View>
-                );
-              })}
-              <View
-                style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginVertical: 8,
-                  width: "100%",
-                }}
-              >
-                <Battery />
-              </View>
-            </AccordionListItem>
+                </AccordionListItem>
+              </>
+            )}
           </>
         )}
       </RecommendationScreenContainer>
@@ -262,4 +425,18 @@ const RecommendationContentItemView = styled.View`
   justify-content: space-between;
   width: 100%;
   margin-top: 8px;
+`;
+
+const ImageContainer = styled.View`
+  border: 1px solid #bcbcbc;
+  border-radius: 16px;
+  width: 100%;
+  height: 160px;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StyledBatteryImage = styled.Image`
+  width: 200px;
+  height: 100%;
 `;
