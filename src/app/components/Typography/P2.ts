@@ -3,7 +3,7 @@ import { FONTS, SIZES } from "styles/typography";
 
 const P2 = styled.Text<{ textColor?: string }>`
   font-size: ${SIZES.p2};
-  font-family: ${FONTS.Urbanist_600SemiBold};
+  font-family: ${FONTS.Urbanist_400Regular};
   color: ${props =>
     props.textColor ?? props.theme.colors.constants.textLightGrey};
 `;
