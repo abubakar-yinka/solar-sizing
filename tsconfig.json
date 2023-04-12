@@ -11,7 +11,7 @@
     "resolveJsonModule": true,
     "strict": true, // We recommend enabling this to minimize the chance of introducing runtime errors.
     "paths": {
-      "*": ["src/*"],
+      "src/*": ["src/*"],
       "app/*": ["app/*"],
       "constants/*": ["constants/*"],
       "locales/*": ["locales/*"],
