@@ -26,6 +26,14 @@ import {
   Urbanist_900Black_Italic,
 } from "@expo-google-fonts/urbanist";
 import AppContainer from "./src";
+import { LogBox } from "react-native";
+import { getFromLocalStorage } from "utils/helpers";
+
+LogBox.ignoreLogs([
+  // See: https://github.com/react-navigation/react-navigation/issues/7839
+  "Sending `onAnimatedValueUpdate` with no listeners registered.",
+  "Require cycle:",
+]);
 
 enableScreens();
 
@@ -45,6 +53,7 @@ function cacheImages(images) {
 
 const App: React.FC = () => {
   const [appIsReady, setAppIsReady] = useState(false);
+  const [viewedOnboarding, setViewedOnboarding] = useState<boolean>(false);
 
   let [fontsLoaded] = useFonts({
     Urbanist_100Thin,
@@ -73,6 +82,8 @@ const App: React.FC = () => {
       try {
         setAppIsReady(false);
         SplashScreen.preventAutoHideAsync();
+        const value = await getFromLocalStorage("@viewedOnboarding");
+        if (value !== null) setViewedOnboarding(true);
 
         const images = [
           require("./assets/icon.png"),
@@ -99,7 +110,7 @@ const App: React.FC = () => {
     return null;
   }
 
-  return <AppContainer />;
+  return <AppContainer viewedOnboarding={viewedOnboarding} />;
 };
 
 export default App;
