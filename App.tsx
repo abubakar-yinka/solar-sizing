@@ -47,10 +47,6 @@ function cacheImages(images) {
   });
 }
 
-// function cacheFonts(fonts) {
-//   return fonts.map(font => Font.loadAsync(font));
-// }
-
 const App: React.FC = () => {
   const [appIsReady, setAppIsReady] = useState(false);
   const [viewedOnboarding, setViewedOnboarding] = useState<boolean>(false);
@@ -91,9 +87,8 @@ const App: React.FC = () => {
         ];
 
         const imageAssets = cacheImages(images);
-        // const fontAssets = cacheFonts([FontAwesome.font]);
 
-        await Promise.all([...imageAssets /*...fontAssets*/]);
+        await Promise.all([...imageAssets]);
       } catch (e) {
         // You might want to provide this error information to an error reporting service
         console.warn(e);
