@@ -223,7 +223,6 @@ const Recommendations = () => {
                           >
                             This is a high value and we advice to step up your
                             voltage.
-                            <br />
                           </P1>
                         ) : (
                           <Text></Text>
@@ -368,7 +367,6 @@ const Recommendations = () => {
                           >
                             This is a high value and we advice to step up your
                             voltage.
-                            <br />
                           </P1>
                         ) : (
                           <Text></Text>
