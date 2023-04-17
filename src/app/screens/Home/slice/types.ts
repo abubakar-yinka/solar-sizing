@@ -16,6 +16,7 @@ export interface AppState {
 export interface Appliance {
   appliance: { name: string; powerRating: number };
   hoursOnPerDay: number;
+  quantity: number;
   wattHoursPerDay: number;
 }
 
