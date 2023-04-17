@@ -30,7 +30,10 @@ export function findEmptyNameIndices(
   const indices: number[] = [];
   for (let i = 0; i < arr.length; i++) {
     for (const key in arr[i]) {
-      if ((typeof arr[i][key] === "object" && arr[i][key].name === "") || (typeof arr[i][key] === "number" && arr[i][key] === 0)) {
+      if (
+        (typeof arr[i][key] === "object" && arr[i][key].name === "") ||
+        (typeof arr[i][key] === "number" && arr[i][key] === 0)
+      ) {
         indices.push(i);
       }
     }
