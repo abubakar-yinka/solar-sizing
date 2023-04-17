@@ -148,7 +148,7 @@ const AppliancesModal: React.FC<Props> = ({ visible, onClose }) => {
           <ModalOverlay />
         </TouchableWithoutFeedback>
         {/* Get value based on field number */}
-        <Container hasMoreThanOneApplianceAdded={appliancesWatch.length > 1}>
+        <Container>
           <H3
             fontFamily={FONTS.Urbanist_600SemiBold}
             style={{ marginBottom: 3 }}
@@ -173,152 +173,158 @@ const AppliancesModal: React.FC<Props> = ({ visible, onClose }) => {
           >
             Total Watt Hours Per Day: {watch("totalWattHoursPerDay")}
           </P1>
-          <ScrollView
-            contentContainerStyle={{
-              flexGrow: 1,
-              paddingTop: 20,
-            }}
-          >
-            {fields.map((field, index) => (
-              <ApplianceWrapper key={index}>
-                <RemoveIcon
-                  onPress={() => {
-                    remove(index);
-                    setValue(
-                      "totalWattHoursPerDay",
-                      computeTotalWattHoursPerDayAfterDelete(
-                        appliancesWatch,
-                        index,
-                      ),
-                    );
-                  }}
-                >
-                  <CloseIcon />
-                </RemoveIcon>
-                <Controller
-                  control={control}
-                  defaultValue={field.appliance}
-                  name={`appliances.${index}.appliance`}
-                  render={({ field: { onChange, value } }) => (
-                    <RNPickerSelect
-                      placeholder={{
-                        label: "Select an Appliance...",
-                        value: null,
-                      }}
-                      value={value}
-                      onValueChange={value => {
-                        const appliance = value;
-                        if (appliance) {
-                          onChange(appliance);
-                          setValue(
-                            `appliances.${index}.wattHoursPerDay`,
-                            computeWattHoursPerDay(
-                              appliance.powerRating,
-                              appliancesWatch[index].hoursOnPerDay,
-                            ),
-                          );
-                        } else {
-                          setValue(
-                            `appliances.${index}.wattHoursPerDay`,
-                            computeWattHoursPerDay(
-                              0,
-                              appliancesWatch[index].hoursOnPerDay,
-                            ),
-                          );
-                          onChange({ name: "", powerRating: 0 });
-                        }
-                        setValue(
-                          "totalWattHoursPerDay",
-                          computeTotalWattHoursPerDay(appliancesWatch),
-                        );
-                      }}
-                      items={formattedSelectItems}
-                      style={pickerSelectStyles}
-                    />
-                  )}
-                />
-                <InputGroup>
-                  <InputContainer>
-                    <InputGroupLabel
-                      fontFamily={FONTS.Urbanist_600SemiBold}
-                      textColor={Theme.colors.constants.textGrey}
-                    >
-                      Watt
-                    </InputGroupLabel>
-                    <Input
-                      keyboardType="number-pad"
-                      defaultValue="0"
-                      value={appliancesWatch[
-                        index
-                      ].appliance.powerRating.toString()}
-                      editable={false}
-                    />
-                  </InputContainer>
-                  <InputContainer>
-                    <InputGroupLabel
-                      fontFamily={FONTS.Urbanist_600SemiBold}
-                      textColor={Theme.colors.constants.textGrey}
-                    >
-                      Hours On / Day
-                    </InputGroupLabel>
-                    <Controller
-                      control={control}
-                      defaultValue={0}
-                      name={`appliances.${index}.hoursOnPerDay`}
-                      render={({ field: { onChange, value, onBlur } }) => (
-                        <Input
-                          keyboardType="number-pad"
-                          defaultValue={field.hoursOnPerDay.toString()}
-                          value={value}
-                          onChangeText={text => {
-                            if (text) {
-                              onChange(parseInt(text));
-                              setValue(
-                                `appliances.${index}.wattHoursPerDay`,
-                                computeWattHoursPerDay(
-                                  appliancesWatch[index].appliance.powerRating,
-                                  parseInt(text),
-                                ),
-                              );
-                            } else {
-                              setValue(
-                                `appliances.${index}.wattHoursPerDay`,
-                                computeWattHoursPerDay(
-                                  appliancesWatch[index].appliance.powerRating,
-                                  0,
-                                ),
-                              );
-                              onChange(0);
-                            }
+          <ScrollWrapper>
+            <ScrollView
+              contentContainerStyle={{
+                flexGrow: 1,
+                paddingTop: 20,
+              }}
+            >
+              {fields.map((field, index) => (
+                <ApplianceWrapper key={index}>
+                  <RemoveIcon
+                    onPress={() => {
+                      remove(index);
+                      setValue(
+                        "totalWattHoursPerDay",
+                        computeTotalWattHoursPerDayAfterDelete(
+                          appliancesWatch,
+                          index,
+                        ),
+                      );
+                    }}
+                  >
+                    <CloseIcon />
+                  </RemoveIcon>
+                  <Controller
+                    control={control}
+                    defaultValue={field.appliance}
+                    name={`appliances.${index}.appliance`}
+                    render={({ field: { onChange, value } }) => (
+                      <RNPickerSelect
+                        placeholder={{
+                          label: "Select an Appliance...",
+                          value: null,
+                        }}
+                        value={value}
+                        onValueChange={value => {
+                          const appliance = value;
+                          if (appliance) {
+                            onChange(appliance);
                             setValue(
-                              "totalWattHoursPerDay",
-                              computeTotalWattHoursPerDay(appliancesWatch),
+                              `appliances.${index}.wattHoursPerDay`,
+                              computeWattHoursPerDay(
+                                appliance.powerRating,
+                                appliancesWatch[index].hoursOnPerDay,
+                              ),
                             );
-                          }}
-                          onBlur={onBlur}
-                        />
-                      )}
-                    />
-                  </InputContainer>
-                  <InputContainer>
-                    <InputGroupLabel
-                      fontFamily={FONTS.Urbanist_600SemiBold}
-                      textColor={Theme.colors.constants.textGrey}
-                    >
-                      Watt Hours / Day
-                    </InputGroupLabel>
-                    <Input
-                      keyboardType="number-pad"
-                      defaultValue="0"
-                      value={appliancesWatch[index].wattHoursPerDay.toString()}
-                      editable={false}
-                    />
-                  </InputContainer>
-                </InputGroup>
-                <ErrorText>{errors?.appliances}</ErrorText>
-              </ApplianceWrapper>
-            ))}
-          </ScrollView>
+                          } else {
+                            setValue(
+                              `appliances.${index}.wattHoursPerDay`,
+                              computeWattHoursPerDay(
+                                0,
+                                appliancesWatch[index].hoursOnPerDay,
+                              ),
+                            );
+                            onChange({ name: "", powerRating: 0 });
+                          }
+                          setValue(
+                            "totalWattHoursPerDay",
+                            computeTotalWattHoursPerDay(appliancesWatch),
+                          );
+                        }}
+                        items={formattedSelectItems}
+                        style={pickerSelectStyles}
+                      />
+                    )}
+                  />
+                  <InputGroup>
+                    <InputContainer>
+                      <InputGroupLabel
+                        fontFamily={FONTS.Urbanist_600SemiBold}
+                        textColor={Theme.colors.constants.textGrey}
+                      >
+                        Watt
+                      </InputGroupLabel>
+                      <Input
+                        keyboardType="number-pad"
+                        defaultValue="0"
+                        value={appliancesWatch[
+                          index
+                        ].appliance.powerRating.toString()}
+                        editable={false}
+                      />
+                    </InputContainer>
+                    <InputContainer>
+                      <InputGroupLabel
+                        fontFamily={FONTS.Urbanist_600SemiBold}
+                        textColor={Theme.colors.constants.textGrey}
+                      >
+                        Hours On / Day
+                      </InputGroupLabel>
+                      <Controller
+                        control={control}
+                        defaultValue={0}
+                        name={`appliances.${index}.hoursOnPerDay`}
+                        render={({ field: { onChange, value, onBlur } }) => (
+                          <Input
+                            keyboardType="number-pad"
+                            defaultValue={field.hoursOnPerDay.toString()}
+                            value={value}
+                            onChangeText={text => {
+                              if (text) {
+                                onChange(parseInt(text));
+                                setValue(
+                                  `appliances.${index}.wattHoursPerDay`,
+                                  computeWattHoursPerDay(
+                                    appliancesWatch[index].appliance
+                                      .powerRating,
+                                    parseInt(text),
+                                  ),
+                                );
+                              } else {
+                                setValue(
+                                  `appliances.${index}.wattHoursPerDay`,
+                                  computeWattHoursPerDay(
+                                    appliancesWatch[index].appliance
+                                      .powerRating,
+                                    0,
+                                  ),
+                                );
+                                onChange(0);
+                              }
+                              setValue(
+                                "totalWattHoursPerDay",
+                                computeTotalWattHoursPerDay(appliancesWatch),
+                              );
+                            }}
+                            onBlur={onBlur}
+                          />
+                        )}
+                      />
+                    </InputContainer>
+                    <InputContainer>
+                      <InputGroupLabel
+                        fontFamily={FONTS.Urbanist_600SemiBold}
+                        textColor={Theme.colors.constants.textGrey}
+                      >
+                        Watt Hours / Day
+                      </InputGroupLabel>
+                      <Input
+                        keyboardType="number-pad"
+                        defaultValue="0"
+                        value={appliancesWatch[
+                          index
+                        ].wattHoursPerDay.toString()}
+                        editable={false}
+                      />
+                    </InputContainer>
+                  </InputGroup>
+                  <ErrorText>{errors?.appliances}</ErrorText>
+                </ApplianceWrapper>
+              ))}
+            </ScrollView>
+          </ScrollWrapper>
           <ButtonGroup>
             <Button
               onPress={() =>
@@ -349,10 +355,9 @@ const AppliancesModal: React.FC<Props> = ({ visible, onClose }) => {
 
 export default AppliancesModal;
 
-const Container = styled.View<{ hasMoreThanOneApplianceAdded?: boolean }>`
+const Container = styled.View`
   position: absolute;
-  height: ${({ hasMoreThanOneApplianceAdded }) =>
-    hasMoreThanOneApplianceAdded ? "400px" : "auto"};
+  height: 400px;
   width: 90%;
   padding: 22px 24px 44px;
   background: #ffffff;
@@ -366,6 +371,10 @@ const ApplianceWrapper = styled.View`
   padding: 12px 6px;
   margin-bottom: 30px;
   border-radius: 8px;
+`;
+
+const ScrollWrapper = styled.View`
+  height: 210px;
 `;
 
 const RemoveIcon = styled.TouchableOpacity`
