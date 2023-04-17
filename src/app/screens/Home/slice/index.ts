@@ -19,6 +19,7 @@ export const initialState: AppState = {
     {
       appliance: { name: "", powerRating: 0 },
       hoursOnPerDay: 1,
+      quantity: 1,
       wattHoursPerDay: 0,
     },
   ],
@@ -84,7 +85,10 @@ const slice = createSlice({
       }>,
     ) {
       state.appliances = action.payload.appliances;
-      state.noOfAppliances = action.payload.appliances.length;
+      state.noOfAppliances = action.payload.appliances.reduce(
+        (acc, curr) => acc + curr.quantity,
+        0,
+      );
       state.totalWattHoursPerDay = action.payload.totalWattHoursPerDay;
 
       const totalPowerConsumption = calculateTotalPowerConsumption(
