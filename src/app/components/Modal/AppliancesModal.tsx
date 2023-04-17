@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Modal, StyleSheet, TouchableWithoutFeedback } from "react-native";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -41,6 +41,7 @@ type FormValues = {
       powerRating: number;
     };
     hoursOnPerDay: number;
+    quantity: number;
     wattHoursPerDay: number;
   }[];
   totalWattHoursPerDay: number;
@@ -55,6 +56,7 @@ const validationSchema = Yup.object().shape({
       })
         .nullable()
         .required("Select an appliance"),
+      quantity: Yup.number().required("Enter Quantity"),
       hoursOnPerDay: Yup.number().required("Enter hours on per day"),
       wattHoursPerDay: Yup.number().required("Enter watt hours per day"),
     }),
@@ -104,14 +106,16 @@ const AppliancesModal: React.FC<Props> = ({ visible, onClose }) => {
   const computeWattHoursPerDay = (
     powerRating: number,
     hoursOnPerDay: number,
+    quantity: number,
   ) => {
-    return powerRating * hoursOnPerDay;
+    return powerRating * hoursOnPerDay * quantity;
   };
 
   const computeTotalWattHoursPerDay = (
     appliances: {
       appliance: { name: string; powerRating: number };
       hoursOnPerDay: number;
+      quantity: number;
       wattHoursPerDay: number;
     }[],
   ) => {
@@ -124,6 +128,7 @@ const AppliancesModal: React.FC<Props> = ({ visible, onClose }) => {
     appliances: {
       appliance: { name: string; powerRating: number };
       hoursOnPerDay: number;
+      quantity: number;
       wattHoursPerDay: number;
     }[],
     index: number,
@@ -216,6 +221,7 @@ const AppliancesModal: React.FC<Props> = ({ visible, onClose }) => {
                               computeWattHoursPerDay(
                                 appliance.powerRating,
                                 appliancesWatch[index].hoursOnPerDay,
+                                appliancesWatch[index].quantity,
                               ),
                             );
                           } else {
@@ -224,6 +230,7 @@ const AppliancesModal: React.FC<Props> = ({ visible, onClose }) => {
                               computeWattHoursPerDay(
                                 0,
                                 appliancesWatch[index].hoursOnPerDay,
+                                appliancesWatch[index].quantity,
                               ),
                             );
                             onChange({ name: "", powerRating: 0 });
@@ -280,6 +287,7 @@ const AppliancesModal: React.FC<Props> = ({ visible, onClose }) => {
                                     appliancesWatch[index].appliance
                                       .powerRating,
                                     parseInt(text),
+                                    appliancesWatch[index].quantity,
                                   ),
                                 );
                               } else {
@@ -289,9 +297,60 @@ const AppliancesModal: React.FC<Props> = ({ visible, onClose }) => {
                                     appliancesWatch[index].appliance
                                       .powerRating,
                                     0,
+                                    appliancesWatch[index].quantity,
                                   ),
                                 );
                                 onChange(0);
+                              }
+                              setValue(
+                                "totalWattHoursPerDay",
+                                computeTotalWattHoursPerDay(appliancesWatch),
+                              );
+                            }}
+                            onBlur={onBlur}
+                          />
+                        )}
+                      />
+                    </InputContainer>
+                    <InputContainer>
+                      <InputGroupLabel
+                        fontFamily={FONTS.Urbanist_600SemiBold}
+                        textColor={Theme.colors.constants.textGrey}
+                      >
+                        Quantity
+                      </InputGroupLabel>
+                      <Controller
+                        control={control}
+                        defaultValue={1}
+                        name={`appliances.${index}.quantity`}
+                        render={({ field: { onChange, value, onBlur } }) => (
+                          <Input
+                            keyboardType="number-pad"
+                            defaultValue={field.quantity.toString()}
+                            value={value}
+                            onChangeText={text => {
+                              if (text) {
+                                onChange(parseInt(text));
+                                setValue(
+                                  `appliances.${index}.wattHoursPerDay`,
+                                  computeWattHoursPerDay(
+                                    appliancesWatch[index].appliance
+                                      .powerRating,
+                                    appliancesWatch[index].hoursOnPerDay,
+                                    parseInt(text),
+                                  ),
+                                );
+                              } else {
+                                setValue(
+                                  `appliances.${index}.wattHoursPerDay`,
+                                  computeWattHoursPerDay(
+                                    appliancesWatch[index].appliance
+                                      .powerRating,
+                                    appliancesWatch[index].hoursOnPerDay,
+                                    1,
+                                  ),
+                                );
+                                onChange(1);
                               }
                               setValue(
                                 "totalWattHoursPerDay",
@@ -331,6 +390,7 @@ const AppliancesModal: React.FC<Props> = ({ visible, onClose }) => {
                 append({
                   appliance: { name: "", powerRating: 0 },
                   hoursOnPerDay: 1,
+                  quantity: 1,
                   wattHoursPerDay: 0,
                 })
               }
