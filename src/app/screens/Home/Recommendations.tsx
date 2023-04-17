@@ -13,6 +13,8 @@ import {
   totalPowerConsumptionSelector,
 } from "./slice/selector";
 import BatteryImage from "app/assets/battery.png";
+import SolarPanelImage from "app/assets/solar_panel.png";
+import ChargeControllerImage from "app/assets/charge_controller.png";
 
 const Recommendations = () => {
   const totalPowerConsumption = useSelector(totalPowerConsumptionSelector);
@@ -172,7 +174,7 @@ const Recommendations = () => {
                           }}
                         >
                           <ImageContainer>
-                            <StyledBatteryImage source={BatteryImage} />
+                            <StyledBatteryImage source={SolarPanelImage} />
                           </ImageContainer>
                         </View>
                       </View>
@@ -245,7 +247,7 @@ const Recommendations = () => {
                         }}
                       >
                         <ImageContainer>
-                          <StyledBatteryImage source={BatteryImage} />
+                          <StyledBatteryImage source={ChargeControllerImage} />
                         </ImageContainer>
                       </View>
                     </AccordionListItem>
@@ -308,7 +310,7 @@ const Recommendations = () => {
                         }}
                       >
                         <ImageContainer>
-                          <StyledBatteryImage source={BatteryImage} />
+                          <StyledBatteryImage source={SolarPanelImage} />
                         </ImageContainer>
                       </View>
                     </View>
@@ -391,7 +393,7 @@ const Recommendations = () => {
                     }}
                   >
                     <ImageContainer>
-                      <StyledBatteryImage source={BatteryImage} />
+                      <StyledBatteryImage source={ChargeControllerImage} />
                     </ImageContainer>
                   </View>
                 </AccordionListItem>
