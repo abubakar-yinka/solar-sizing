@@ -22,6 +22,7 @@ export const loadAppState = async (): Promise<AppState> => {
         {
           appliance: { name: "", powerRating: 0 },
           hoursOnPerDay: 1,
+          quantity: 1,
           wattHoursPerDay: 0,
         },
       ],

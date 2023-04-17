@@ -12,6 +12,7 @@ export function checkArrayItemsHaveEmptyName(
   array: {
     appliance: { name: string; powerRating: number };
     hoursOnPerDay: number;
+    quantity: number;
     wattHoursPerDay: number;
   }[],
 ) {
@@ -22,6 +23,7 @@ export function findEmptyNameIndices(
   arr: {
     appliance: { name: string; powerRating: number };
     hoursOnPerDay: number;
+    quantity: number;
     wattHoursPerDay: number;
   }[],
 ) {
