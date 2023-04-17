@@ -27,18 +27,16 @@ export function findEmptyNameIndices(
     wattHoursPerDay: number;
   }[],
 ) {
-  const indices: number[] = [];
+  const invalidIndices: number[] = [];
+
   for (let i = 0; i < arr.length; i++) {
-    for (const key in arr[i]) {
-      if (
-        (typeof arr[i][key] === "object" && arr[i][key].name === "") ||
-        (typeof arr[i][key] === "number" && arr[i][key] === 0)
-      ) {
-        indices.push(i);
-      }
+    const { appliance, hoursOnPerDay, quantity } = arr[i];
+    if (!appliance.name || quantity === 0 || hoursOnPerDay === 0) {
+      invalidIndices.push(i);
     }
   }
-  return indices;
+
+  return invalidIndices;
 }
 
 export const getInitials = (firstName: string, lastName: string): string =>
